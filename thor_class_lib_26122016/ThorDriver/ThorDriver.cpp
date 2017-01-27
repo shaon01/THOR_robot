@@ -1,22 +1,15 @@
-/*
-  Morse.cpp - Library for flashing Morse code.
-  Created by David A. Mellis, November 2, 2007.
-  Released into the public domain.
-*/
-
 
 #include "ThorDriver.h"
-#include <Adafruit_MotorShield.h>
-#include <Servo.h> 
 
 
 ThorDriver::ThorDriver(Adafruit_MotorShield* AFMS )
 	{
-			_AFMS = AFMS;			
+			_AFMS = AFMS;
+						
 			backLeftWheel   = _AFMS->getMotor(4);  // back left wheel 
 			backRightWheel  = _AFMS->getMotor(3);  // back right wheel
 			frontLeftWheel  = _AFMS->getMotor(2); // front left wheel
-			frontRightWheel = _AFMS->getMotor(1); //front right wheel
+			frontRightWheel = _AFMS->getMotor(1); //front right wheel		
 	
 	}
 	
@@ -45,7 +38,7 @@ void ThorDriver::moveMotor()
 
 }
 
-void ThorDriver::direction(char dir)
+void ThorDriver::direction(char dir, int val)
 {
 	 switch (dir) {
 
@@ -90,6 +83,17 @@ void ThorDriver::direction(char dir)
           set_moveSpeed(get_moveSpeed() - 5);
           moveMotor();
           break;
+          
+        case'h':
+			head.write(val);
+			delay(15);
+			break;
+			
+		case 'b':
+			base.write(val);
+			delay(15);
+			break;
+			
 
         
       }
