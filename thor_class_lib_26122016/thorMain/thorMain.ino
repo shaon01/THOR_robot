@@ -1,7 +1,7 @@
 
-//#include <ThorDriver.h>
-#include <Adafruit_MotorShield.h>
-#include <Servo.h>
+#include <ThorDriver.h>
+//#include <Adafruit_MotorShield.h>
+//#include <Servo.h>
 
 Servo base;
 Servo head;
@@ -10,7 +10,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
 bool received = false;
 
-
+/*
 class ThorDriver
 {
   private:
@@ -20,17 +20,17 @@ class ThorDriver
     uint8_t leftDir;   //wheel direction
     uint8_t rightDir;
     
-    Adafruit_MotorShield _AFMS ;
-    Adafruit_DCMotor *backLeftWheel = _AFMS.getMotor(4);  // back left wheel 
-    Adafruit_DCMotor *backRightWheel = _AFMS.getMotor(3);  // back right wheel
-    Adafruit_DCMotor *frontLeftWheel = _AFMS.getMotor(2); // front left wheel
-    Adafruit_DCMotor *frontRightWheel = _AFMS.getMotor(1); //front right wheel
+    Adafruit_MotorShield* _AFMS ;
+    Adafruit_DCMotor *backLeftWheel   = _AFMS->getMotor(4);  // back left wheel 
+    Adafruit_DCMotor *backRightWheel  = _AFMS->getMotor(3);  // back right wheel
+    Adafruit_DCMotor *frontLeftWheel  = _AFMS->getMotor(2); // front left wheel
+    Adafruit_DCMotor *frontRightWheel = _AFMS->getMotor(1); //front right wheel
   
     
     
   
   public:
-    ThorDriver(Adafruit_MotorShield& AFMS);
+    ThorDriver(Adafruit_MotorShield* AFMS);
     void moveMotor();
     void direction(char dir);
 
@@ -42,14 +42,14 @@ class ThorDriver
   };
 
 
-ThorDriver::ThorDriver(Adafruit_MotorShield& AFMS )
+ThorDriver::ThorDriver(Adafruit_MotorShield* AFMS )
   {
       _AFMS = AFMS;
       //_AFMS->begin();
-    Adafruit_DCMotor *backLeftWheel   = _AFMS.getMotor(4);  // back left wheel 
-    Adafruit_DCMotor *backRightWheel  = _AFMS.getMotor(3);  // back right wheel
-    Adafruit_DCMotor *frontLeftWheel  = _AFMS.getMotor(2); // front left wheel
-    Adafruit_DCMotor *frontRightWheel = _AFMS.getMotor(1); //front right wheel
+    backLeftWheel   = _AFMS->getMotor(4);  // back left wheel 
+    backRightWheel  = _AFMS->getMotor(3);  // back right wheel
+    frontLeftWheel  = _AFMS->getMotor(2); // front left wheel
+    frontRightWheel = _AFMS->getMotor(1); //front right wheel
   
       
   }
@@ -129,7 +129,7 @@ void ThorDriver::direction(char dir)
       }
 }
 
-
+*/
 
 void setup() {
 
@@ -140,10 +140,10 @@ void setup() {
   head.attach(9);  //servo2   
 
   AFMS.begin();
-  //ThorDriver::ThorDriver(&AFMS); //creating robot object
+
 }
 
-ThorDriver robot = ThorDriver(AFMS); //creating robot object
+ThorDriver robot = ThorDriver(&AFMS); //creating robot object
 
 void loop() {
 

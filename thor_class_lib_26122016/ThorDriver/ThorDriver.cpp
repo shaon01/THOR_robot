@@ -10,9 +10,14 @@
 #include <Servo.h> 
 
 
-ThorDriver::ThorDriver()
+ThorDriver::ThorDriver(Adafruit_MotorShield* AFMS )
 	{
-			Adafruit_MotorShield::begin();
+			_AFMS = AFMS;			
+			backLeftWheel   = _AFMS->getMotor(4);  // back left wheel 
+			backRightWheel  = _AFMS->getMotor(3);  // back right wheel
+			frontLeftWheel  = _AFMS->getMotor(2); // front left wheel
+			frontRightWheel = _AFMS->getMotor(1); //front right wheel
+	
 	}
 	
 	
