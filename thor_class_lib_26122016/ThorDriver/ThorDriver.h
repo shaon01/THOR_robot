@@ -14,6 +14,7 @@ class ThorDriver
   private:
     int m_moving_speed = 60;             //speed to move forward and backward
     int m_turn_speed = 40;               //speed to turn left or right
+    int m_servoDeg = 0;
 
     uint8_t leftDir;   //wheel direction
     uint8_t rightDir;

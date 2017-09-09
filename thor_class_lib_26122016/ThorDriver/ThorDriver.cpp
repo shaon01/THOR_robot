@@ -41,8 +41,8 @@ void ThorDriver::moveMotor()
 void ThorDriver::direction(char dir, int val)
 {
 	 switch (dir) {
-
-        case 'w':
+		//driving backward due to motor issue its wrote as reverse
+        case 'z':
           leftDir  = FORWARD;
           rightDir = FORWARD;
           moveMotor();
@@ -60,8 +60,8 @@ void ThorDriver::direction(char dir, int val)
           rightDir = BACKWARD;
           moveMotor();
           break;
-
-        case 'z':
+		//driving froward
+        case 'w':
           leftDir  = BACKWARD;
           rightDir = BACKWARD;
           moveMotor();
@@ -84,16 +84,21 @@ void ThorDriver::direction(char dir, int val)
           moveMotor();
           break;
           
-        case'h':
-			head.write(val);
-			delay(15);
-			break;
-			
-		case 'b':
-			base.write(val);
-			delay(15);
-			break;
-			
+         case'h':
+             m_servoDeg = max(0,val);
+             m_servoDeg = min(val,80);
+             head.write(m_servoDeg);
+             delay(15);
+             break;
+
+         case 'b':
+             m_servoDeg = max(20,val);
+             m_servoDeg = min(val,150);
+             Serial.print("\n in class base value :"); Serial.print(m_servoDeg);
+             base.write(m_servoDeg);
+             delay(15);
+             break;
+
 
         
       }
