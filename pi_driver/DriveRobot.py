@@ -60,10 +60,10 @@ class DriveRobot:
 
 	
 
-robot = DriveRobot()
-
+# test the class
 if __name__=="__main__":
 	
+	robot = DriveRobot()
 	while True:
 		
 		dir = raw_input('\nGive direction :')			
