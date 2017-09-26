@@ -29,7 +29,8 @@ class DriveRobot:
 
 #this is to catch  error for dict
 def dicError():
-	print "invalid input........."
+	print "invalid input.........\n\n enter   w => go forward\n 	 b=> go backward\n 	 t=> to talk"
+	
 
 robot = DriveRobot()
 
