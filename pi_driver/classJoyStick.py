@@ -1,0 +1,54 @@
+import time
+import kbhit
+import struct
+import serial
+
+keyCatch = kbhit.KBHit() # for catching key
+
+#create a class for driving robot where all the direction and everything is predefinied
+
+class DriveRobot:
+	
+	def __init__(self): #setting up all the serial settings
+		self.serl = serial.Serial("/dev/ttyAMA0",9600,timeout = 1)
+		self.serl.isOpen()
+	
+	#call this to move forward 
+	def moveForward(self): 
+		self.serl.write('w')
+	
+	#call this to move backward
+	def moveBackward(self):
+		self.serl.write('s')
+	
+	#<TODO> : implement a way to talking for robot
+	def nowTalk(self):
+		print "now in talking mode....."
+
+	
+
+#this is to catch  error for dict
+def dicError():
+	print "invalid input........."
+
+robot = DriveRobot()
+
+#dict for deciscion lookup table
+deciscion = {
+		'w':robot.moveForward,
+		's':robot.moveBackward,
+		't':robot.nowTalk,
+		'q':exit,
+		}
+
+
+if __name__=="__main__":
+	
+	while True:
+		
+		dir = raw_input('\n Give direction :')
+		print "\n : ",dir	
+		deciscion.get(dir,dicError)()
+
+		
+
