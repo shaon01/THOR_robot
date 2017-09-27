@@ -38,11 +38,14 @@ class DriveRobot:
 	#<TODO> : implement a way to talking for robot
 	def nowTalk(self):
 		print "now in talking mode....."
-		textt = raw_input('\nwhat to say :')
-		#while(textt != 'Q'):
-		self.voiceEng.say(textt)
-		self.voiceEng.runAndWait()
-		#textt = raw_input('\nwhat to say :')
+		textt = 'hello'
+		while(textt != 'bye'):
+
+			textt = raw_input('\nwhat to say :')
+			self.voiceEng.say(textt)
+			self.voiceEng.setProperty('rate',150)
+			self.voiceEng.runAndWait()
+			
 
 
 	def deciscion(self,val):
