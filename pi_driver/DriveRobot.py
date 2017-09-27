@@ -1,6 +1,7 @@
 import time
 import struct
 import serial
+import pyttsx3
 
 #create a class for driving robot where all the direction and everything is predefinied
 
@@ -9,6 +10,7 @@ class DriveRobot:
 	def __init__(self): #setting up all the serial settings
 		self.serl = serial.Serial("/dev/ttyAMA0",9600,timeout = 1)
 		self.serl.isOpen()
+		self.voiceEng = pyttsx3.init()
 	
 	#call this to move forward 
 	def moveForward(self): 
@@ -36,6 +38,11 @@ class DriveRobot:
 	#<TODO> : implement a way to talking for robot
 	def nowTalk(self):
 		print "now in talking mode....."
+		textt = raw_input('\nwhat to say :')
+		#while(textt != 'Q'):
+		self.voiceEng.say(textt)
+		self.voiceEng.runAndWait()
+		#textt = raw_input('\nwhat to say :')
 
 
 	def deciscion(self,val):
