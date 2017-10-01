@@ -37,10 +37,11 @@ def moveBase():
 
 
 if __name__ == "__main__":
-	moveHead()
-	sleep(0.5)
-	print 'now going to move base'
-	moveBase()     
+	while True:
+		moveHead()
+		sleep(0.5)
+		print 'now going to move base'
+		moveBase()     
     
 
 
