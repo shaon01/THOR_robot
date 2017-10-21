@@ -49,8 +49,9 @@ void loop() {
 
   if (received) {
 
-    Serial.print("\n received direction :"); Serial.write(msg[0]);
-    Serial.print("\n received value :"); Serial.print(val);
+    //Serial.print("\n received direction :");
+    Serial.write(msg[0]);
+    //Serial.print("\n received value :");Serial.print(val);
   
     robot.direction(msg[0],val);
 
