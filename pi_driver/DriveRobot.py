@@ -7,10 +7,15 @@ import pyttsx3
 
 class DriveRobot:
 	
+	__currHeadAngl = 10
+	__stepSize = 5
+	__toggle = 0
+	
 	def __init__(self): #setting up all the serial settings
 		self.serl = serial.Serial("/dev/ttyAMA0",9600,timeout = 1)
 		self.serl.isOpen()
 		self.voiceEng = pyttsx3.init()
+		self.serl.write(struct.pack('!cc','h',chr(50))) #just head up
 	
 	#call this to move forward 
 	def moveForward(self): 
@@ -34,6 +39,22 @@ class DriveRobot:
 	#call this to trun right
 	def turnRight(self):
 		self.serl.write('d')
+		
+		
+	def moveBase(self):
+		if self.__toggle == 0:
+			self.serl.write(struct.pack('!cc','b',chr(self.__currHeadAngl)))
+			self.__currHeadAngl = self.__currHeadAngl + self.__stepSize
+			if self.__currHeadAngl > 150:
+				self.__toggle = 1
+			time.sleep(0.5)
+				
+		elif self.__toggle == 1:
+			self.serl.write(struct.pack('!cc','b',chr(self.__currHeadAngl)))
+			self.__currHeadAngl = self.__currHeadAngl - self.__stepSize
+			if self.__currHeadAngl < 10:
+				self.__toggle = 1
+			time.sleep(0.5)
 	
 	#<TODO> : implement a way to talking for robot
 	def nowTalk(self):
