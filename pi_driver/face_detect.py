@@ -11,6 +11,7 @@ import cv2
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+from DriveRobot import DriveRobot
 
 #Initialize a face cascade using the frontal face haar cascade provided with
 #the OpenCV library
@@ -28,6 +29,8 @@ time.sleep(0.1)
 #The deisred output width and height
 OUTPUT_SIZE_WIDTH = 320
 OUTPUT_SIZE_HEIGHT = 280
+
+robot2 = DriveRobot()
 
 
 
@@ -109,7 +112,7 @@ def detectLargestFace():
 				cv2.rectangle(resultImage,  (x-10, y-20),(x + w+10 , y + h+20),rectangleColor,2)
 				
 			else :
-				robot.deciscion('m')
+				robot2.moveBase()
 
 
 

@@ -7,14 +7,22 @@ import serial
 
 class DriveRobot:
 	
-	__currAngl =  10
-	__increment = True
+
+	__currBaseAngl =  10
+	__incrementBase = True
+	__currHeadAngl = 10
+	__stepSize = 5
+	__incrementHead = 0
+
 	
 	def __init__(self): #setting up all the serial settings
 		self.serl = serial.Serial("/dev/ttyACM1",9600,timeout = 1)
 		self.serl.isOpen()
-		#self.voiceEng = pyttsx3.init()
+		self.voiceEng = pyttsx3.init()	
+		self.voiceEng = pyttsx3.init()
 		
+		self.serl.write(struct.pack('!cc','h',chr(50))) #just head up
+
 	def readSerial(self):
 		return self.serl.readline()
 		'''
@@ -22,10 +30,9 @@ class DriveRobot:
 		if data :
 			print "_______________________________"
 			print "in serial :",data #int(data) +48
-			print "current _angl :",self.__currAngl  
+			print "current _angl :",self.__currBaseAngl  
 			
 		'''
-	
 	#call this to move forward 
 	def moveForward(self): 
 		self.serl.write('w')
@@ -49,23 +56,40 @@ class DriveRobot:
 	def turnRight(self):
 		self.serl.write('d')
 		
+
 	def moveHead(self):
 		self.serl.write('h')
-		self.serl.write(chr(self.__currAngl))
+		self.serl.write(chr(self.__currBaseAngl))
 		
-		if self.__currAngl > 180:
-			self.__increment  = False
+		if self.__currBaseAngl > 180:
+			self.__incrementBase  = False
 			
-		elif self.__currAngl < 10:
-			self.__increment = True
+		elif self.__currBaseAngl < 10:
+			self.__incrementBase = True
 			
-		if self.__increment:
-			self.__currAngl = self.__currAngl + 10
+		if self.__incrementBase:
+			self.__currBaseAngl = self.__currBaseAngl + 10
 			
 		else :
-			self.__currAngl  = self.__currAngl - 10
+			self.__currBaseAngl  = self.__currBaseAngl - 10
+
+		
+	def moveBase(self):
+		if self.__incrementHead == 0:
+			self.serl.write(struct.pack('!cc','b',chr(self.__currHeadAngl)))
+			self.__currHeadAngl = self.__currHeadAngl + self.__stepSize
+			if self.__currHeadAngl > 150:
+				self.__incrementHead = 1
+			time.sleep(0.5)
+				
+		elif self.__incrementHead == 1:
+			self.serl.write(struct.pack('!cc','b',chr(self.__currHeadAngl)))
+			self.__currHeadAngl = self.__currHeadAngl - self.__stepSize
+			if self.__currHeadAngl < 10:
+				self.__incrementHead = 1
+			time.sleep(0.5)
 	
-		print "current head angle :", self.__currAngl
+		print "current head angle :", self.__currBaseAngl
 		
 	#<TODO> : implement a way to talking for robot
 	def nowTalk(self):
